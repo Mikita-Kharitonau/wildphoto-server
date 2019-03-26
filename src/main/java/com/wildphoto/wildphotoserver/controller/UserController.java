@@ -1,7 +1,11 @@
 package com.wildphoto.wildphotoserver.controller;
 
+import com.wildphoto.wildphotoserver.model.User;
+import com.wildphoto.wildphotoserver.model.dtos.UserDTO;
 import com.wildphoto.wildphotoserver.model.dtos.UserIdentityAvailability;
 import com.wildphoto.wildphotoserver.repository.UserRepository;
+import com.wildphoto.wildphotoserver.security.CurrentUser;
+import com.wildphoto.wildphotoserver.security.UserPrincipal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +21,13 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-//    @GetMapping("/user/me")
-//    @PreAuthorize("hasRole('USER')")
-//    public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
-//        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName());
-//        return userSummary;
-//    }
+    @GetMapping("/user/me")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public UserDTO getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+        User user = userRepository.getById(currentUser.getId()).get();
+        return new UserDTO(user.getId(), user.getAvatarSrc(), user.getName(), user.getUsername(),
+                user.getEmail(), null, null, null, null);
+    }
 
     @GetMapping("/user/checkUsernameAvailability")
     public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "username") String username) {

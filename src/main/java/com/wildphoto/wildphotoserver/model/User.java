@@ -28,10 +28,8 @@ public class User {
     @Column(name = "avatar_src")
     private String avatarSrc = "photos/noavatar.jpg";
 
-    @NotBlank
     private String name;
 
-    @NotBlank
     private String username;
 
     @NaturalId
@@ -77,10 +75,7 @@ public class User {
         this.roles = roles;
     }
 
-    public User(@NotBlank String name, @NotBlank String username,
-                @NotBlank @Email String email, @NotBlank String password) {
-        this.name = name;
-        this.username = username;
+    public User(@NotBlank @Email String email, @NotBlank String password) {
         this.email = email;
         this.password = password;
     }

@@ -3,6 +3,7 @@ package com.wildphoto.wildphotoserver.config;
 import com.wildphoto.wildphotoserver.security.CustomUserDetailsService;
 import com.wildphoto.wildphotoserver.security.JwtAuthenticationEntryPoint;
 import com.wildphoto.wildphotoserver.security.JwtAuthenticationFilter;
+import com.wildphoto.wildphotoserver.security.WildphotoPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new WildphotoPasswordEncoder();//BCryptPasswordEncoder();
     }
 
     @Override
@@ -73,6 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .authorizeRequests()
                     .antMatchers("/api/auth/**")
+                        .permitAll()
+                    .antMatchers("/api/photo/**", "/api/photos")
                         .permitAll()
                     .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
                         .permitAll()

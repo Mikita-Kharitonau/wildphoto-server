@@ -35,7 +35,7 @@ public class PhotoController {
 
     @GetMapping(path = "/photos")
     private List<PhotoThumbnail> searchForPhotos() throws InterruptedException {
-        //Thread.sleep(1000);
+        Thread.sleep(1000);
         return photoService.getAllPhotos()
                 .stream()
                 .map(photo -> photoThumbnailMapper.entityToDTO(photo))
@@ -44,7 +44,7 @@ public class PhotoController {
 
     @GetMapping(path = "photo/{id}")
     private ResponseEntity<PhotoDTO> searchForPhotos(@PathVariable Long id) throws InterruptedException {
-        //Thread.sleep(1000);
+        Thread.sleep(1000);
         Optional<Photo> photoOptional = photoService.getPhotoById(id);
         if (photoOptional.isPresent()) {
             return new ResponseEntity<>(photoMapper.entityToDTO(photoOptional.get()), HttpStatus.OK);
