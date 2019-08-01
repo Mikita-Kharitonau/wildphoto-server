@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/photo")
+@RequestMapping("/api")
 public class PhotoController {
 
     @Autowired
@@ -33,18 +33,18 @@ public class PhotoController {
     @Autowired
     private PhotoThumbnailMapper photoThumbnailMapper;
 
-    @GetMapping(path = "")
+    @GetMapping(path = "/photos")
     private List<PhotoThumbnail> searchForPhotos() throws InterruptedException {
-        //Thread.sleep(1000);
+        Thread.sleep(1000);
         return photoService.getAllPhotos()
                 .stream()
                 .map(photo -> photoThumbnailMapper.entityToDTO(photo))
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "photo/{id}")
     private ResponseEntity<PhotoDTO> searchForPhotos(@PathVariable Long id) throws InterruptedException {
-        //Thread.sleep(1000);
+        Thread.sleep(1000);
         Optional<Photo> photoOptional = photoService.getPhotoById(id);
         if (photoOptional.isPresent()) {
             return new ResponseEntity<>(photoMapper.entityToDTO(photoOptional.get()), HttpStatus.OK);

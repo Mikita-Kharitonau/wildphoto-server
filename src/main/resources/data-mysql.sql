@@ -1,4 +1,9 @@
+insert ignore into roles(id, name) VALUES(1, 'ROLE_USER');
+insert ignore into roles(id, name) VALUES(2, 'ROLE_ADMIN');
+
 insert ignore into users (email, name, password, username, avatar_src) values ('user@user.com', 'Никита Харитонов', 'user', 'user', 'photos/H20SY3wdF7Y.jpg');
+
+insert ignore into user_roles (user_id, role_id) values (1, 2);
 
 insert ignore into photos (id, title, date, thumbnail_src, fullsize_src, user_id) values (
   1, 'Черный аист', '2019-03-15 12:45:07', 'photos/thumbnails/Черный аист.jpg', 'photos/Черный аист.jpg', 1
