@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
 
-  verbs-server:
+  wildphoto-server:
     image: wildphoto-server:0.0.1-SNAPSHOT
     ports:
       - 8080:8080
